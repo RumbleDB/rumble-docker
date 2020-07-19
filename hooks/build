@@ -1,0 +1,26 @@
+#!/bin/bash
+
+: "${SPARK2_LATEST:=2.4.6}"
+: "${SPARK3_LATEST:=3.0.0}"
+
+# Determine exact Spark version
+spark_major="$(echo "$DOCKER_TAG" | sed "s/.*-spark//")"
+
+if [[ "$spark_major" == "2" ]]
+then
+    SPARK_VERSION=$SPARK2_LATEST
+elif [[ "$spark_major" == "3" ]]
+then
+    SPARK_VERSION=$SPARK3_LATEST
+else
+    echo "Error: could not detect Spark version." >&2
+fi
+
+# Determine Rumble version
+RUMBLE_VERSION="$(echo "$DOCKER_TAG" | cut -f1 -d-)"
+RUMBLE_VERSION="${RUMBLE_VERSION:1}"
+
+# Run build command
+docker build . -t ${IMAGE_NAME} \
+    --build-arg SPARK_VERSION=${SPARK_VERSION} \
+    --build-arg RUMBLE_VERSION=${RUMBLE_VERSION}

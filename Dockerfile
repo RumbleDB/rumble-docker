@@ -1,6 +1,9 @@
 FROM openjdk:8-alpine
 MAINTAINER Ingo Müller <ingo.mueller@inf.ethz.ch>
 
+ARG SPARK_VERSION=2.4.6
+ARG RUMBLE_VERSION=1.7.0
+
 ENV SPARK_HOME=/opt/spark
 ENV SPARK_WORKER_DIR=/var/spark
 
@@ -10,13 +13,12 @@ RUN adduser -Ds /bin/bash -h ${SPARK_WORKER_DIR} spark && \
     apk add --virtual .deps --no-cache wget tar && \
     mkdir /opt/spark && \
     cd /opt/spark && \
-    version=2.4.6 && \
-    wget --progress=dot:giga http://apache.uvigo.es/spark/spark-${version}/spark-${version}-bin-hadoop2.7.tgz -O - | \
+    wget --progress=dot:giga http://apache.uvigo.es/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz -O - | \
         tar -zx --strip-components 1 && \
 # Download Rumble
     cd /opt/spark/jars && \
-    version=1.7.0 && \
-    wget --progress=dot:giga https://github.com/RumbleDB/rumble/releases/download/v${version}/spark-rumble-${version}.jar -O spark-rumble.jar && \
+    suffix=$(if [[ "${SPARK_VERSION:0:1}" -eq 3 ]]; then echo -for-spark-3; fi) && \
+    wget --progress=dot:giga https://github.com/RumbleDB/rumble/releases/download/v${RUMBLE_VERSION}/spark-rumble-${RUMBLE_VERSION}${suffix}.jar -O spark-rumble.jar && \
 # Clean-up
     apk --no-cache del .deps && \
     rm -rf /tmp/*
