@@ -2,7 +2,7 @@ FROM openjdk:8-alpine
 MAINTAINER Ingo Müller <ingo.mueller@inf.ethz.ch>
 
 ARG SPARK_VERSION=2.4.6
-ARG RUMBLE_VERSION=1.7.0
+ARG RUMBLE_VERSION=1.8.0
 
 ENV SPARK_HOME=/opt/spark
 ENV SPARK_WORKER_DIR=/var/spark
