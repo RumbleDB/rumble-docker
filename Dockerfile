@@ -13,7 +13,7 @@ RUN adduser -Ds /bin/bash -h ${SPARK_WORKER_DIR} spark && \
     apk add --virtual .deps --no-cache wget tar && \
     mkdir /opt/spark && \
     cd /opt/spark && \
-    wget --progress=dot:giga http://apache.uvigo.es/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz -O - | \
+    wget --progress=dot:giga https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz -O - | \
         tar -zx --strip-components 1 && \
 # Download Rumble
     suffix=$(if [[ "${SPARK_VERSION:0:1}" -eq 3 ]]; then echo -for-spark-3; fi) && \
