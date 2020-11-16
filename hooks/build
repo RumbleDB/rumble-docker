@@ -1,7 +1,10 @@
 #!/bin/bash
 
-: "${SPARK2_LATEST:=2.4.6}"
-: "${SPARK3_LATEST:=3.0.0}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+ROOT_DIR="$(dirname "$SCRIPT_DIR")"
+
+: "${SPARK2_LATEST:=2.4.7}"
+: "${SPARK3_LATEST:=3.0.1}"
 
 # Determine exact Spark version
 spark_major="$(echo "$DOCKER_TAG" | sed "s/.*-spark//")"
@@ -20,7 +23,10 @@ fi
 RUMBLE_VERSION="$(echo "$DOCKER_TAG" | cut -f1 -d-)"
 RUMBLE_VERSION="${RUMBLE_VERSION:1}"
 
+echo "Spark version: $SPARK_VERSION"
+echo "Rumble version: $RUMBLE_VERSION"
+
 # Run build command
-docker build . -t ${IMAGE_NAME} \
+docker build "$ROOT_DIR" -t ${IMAGE_NAME} \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg RUMBLE_VERSION=${RUMBLE_VERSION}
