@@ -25,6 +25,7 @@ RUN adduser -Ds /bin/bash -h ${SPARK_WORKER_DIR} spark && \
 # Clean-up
     apk --no-cache del .deps
 
+COPY entrypoint.sh "/opt/entrypoint.sh"
 WORKDIR ${SPARK_WORKER_DIR}
 USER spark:spark
-ENTRYPOINT [ "/opt/spark/bin/spark-submit", "/opt/spark/jars/spark-rumble-jar-with-dependencies.jar" ]
+ENTRYPOINT [ "/opt/entrypoint.sh" ]
