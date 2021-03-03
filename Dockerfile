@@ -17,7 +17,9 @@ RUN adduser -Ds /bin/bash -h ${SPARK_WORKER_DIR} spark && \
     wget --progress=dot:giga https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz -O - | \
         tar -zx --strip-components 1 && \
 # Download Rumble
-    suffix=$(if [[ "${SPARK_VERSION:0:1}" -eq 3 ]]; then echo -for-spark-3; fi) && \
+    suffix2=$([[ "${RUMBLE_VERSION:0:2}" == "1." && "$(echo ${RUMBLE_VERSION:2:2} | tr -d .)" -lt 11 ]] || echo -n -for-spark-2) && \
+    suffix3=$([[ "${RUMBLE_VERSION:0:2}" != "1." || "$(echo ${RUMBLE_VERSION:2:2} | tr -d .)" -ge 11 ]] || echo -n -for-spark-3) && \
+    suffix=$(if [[ "${SPARK_VERSION:0:2}" == "2." ]]; then echo $suffix2; else echo $suffix3; fi) && \
     wget --progress=dot:giga -O /opt/spark/jars/spark-rumble-jar-with-dependencies.jar \
         https://github.com/RumbleDB/rumble/releases/download/v${RUMBLE_VERSION}/spark-rumble-${RUMBLE_VERSION}${suffix}.jar && \
 # Clean-up
