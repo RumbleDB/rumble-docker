@@ -1,8 +1,8 @@
 FROM openjdk:8-alpine
 MAINTAINER Ingo Müller <ingo.mueller@inf.ethz.ch>
 
-ARG SPARK_VERSION=3.1.2
-ARG RUMBLE_VERSION=1.14.0
+ARG SPARK_VERSION=3.2.0
+ARG RUMBLE_FILENAME=v1.16.1/rumbledb-1.16.1-for-spark-3.1.jar
 
 ENV SPARK_HOME=/opt/spark
 ENV SPARK_WORKER_DIR=/var/spark
@@ -14,16 +14,11 @@ RUN adduser -Ds /bin/bash -h ${SPARK_WORKER_DIR} spark && \
     apk add --virtual .deps --no-cache wget tar && \
     mkdir /opt/spark && \
     cd /opt/spark && \
-    wget --progress=dot:giga https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz -O - | \
+    wget --progress=dot:giga https://downloads.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz -O - | \
         tar -zx --strip-components 1 && \
 # Download Rumble
-    prefix="rumbledb" && \
-    if [[ "${RUMBLE_VERSION:0:2}" == "1." && "$(echo ${RUMBLE_VERSION:2:2} | tr -d .)" -lt 14 ]]; then prefix="spark-rumble"; fi && \
-    suffix2=$([[ "${RUMBLE_VERSION:0:2}" == "1." && "$(echo ${RUMBLE_VERSION:2:2} | tr -d .)" -lt 11 ]] || echo -n -for-spark-2) && \
-    suffix3=$([[ "${RUMBLE_VERSION:0:2}" != "1." || "$(echo ${RUMBLE_VERSION:2:2} | tr -d .)" -ge 11 ]] || echo -n -for-spark-3) && \
-    suffix=$(if [[ "${SPARK_VERSION:0:2}" == "2." ]]; then echo $suffix2; else echo $suffix3; fi) && \
     wget --progress=dot:giga -O /opt/spark/jars/spark-rumble-jar-with-dependencies.jar \
-        https://github.com/RumbleDB/rumble/releases/download/v${RUMBLE_VERSION}/${prefix}-${RUMBLE_VERSION}${suffix}.jar && \
+        https://github.com/RumbleDB/rumble/releases/download/${RUMBLE_FILENAME} && \
 # Clean-up
     apk --no-cache del .deps
 
