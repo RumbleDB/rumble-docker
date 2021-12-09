@@ -1,8 +1,8 @@
 FROM openjdk:8-alpine
 MAINTAINER Ingo Müller <ingo.mueller@inf.ethz.ch>
 
-ARG SPARK_VERSION=3.2.0
-ARG RUMBLE_FILENAME=v1.16.1/rumbledb-1.16.1-for-spark-3.1.jar
+ARG SPARK_VERSION=3.1.2
+ARG RUMBLE_FILENAME=v1.16.2/rumbledb-1.16.2-for-spark-3.2.jar
 
 ENV SPARK_HOME=/opt/spark
 ENV SPARK_WORKER_DIR=/var/spark
