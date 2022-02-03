@@ -38,7 +38,8 @@ then
     v="1.15.0"; SPARK3_VERSIONS[$v]="3.1.2"; RUMBLE_FILENAMES[$v]=v$v/rumbledb-$v.jar
     v="1.16.0"; SPARK3_VERSIONS[$v]="3.1.2"; RUMBLE_FILENAMES[$v]=v$v/rumbledb-$v.jar
     v="1.16.1"; SPARK3_VERSIONS[$v]="3.1.2"; RUMBLE_FILENAMES[$v]=v$v/rumbledb-$v-for-spark-3.1.jar
-    v="1.16.2"; SPARK3_VERSIONS[$v]="3.2.0"; RUMBLE_FILENAMES[$v]=v$v/rumbledb-$v-for-spark-3.2.jar
+    v="1.16.2"; SPARK3_VERSIONS[$v]="3.2.1"; RUMBLE_FILENAMES[$v]=v$v/rumbledb-$v-for-spark-3.2.jar
+    v="1.17.0"; SPARK3_VERSIONS[$v]="3.2.1"; RUMBLE_FILENAMES[$v]=v$v/rumbledb-$v-for-spark-3.2.jar
 
     SPARK_VERSION=${SPARK3_VERSIONS[$RUMBLE_VERSION]}
     RUMBLE_FILENAME=${RUMBLE_FILENAMES[$RUMBLE_VERSION]}
