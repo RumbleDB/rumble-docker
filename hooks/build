@@ -54,6 +54,6 @@ echo "Rumble file name: $RUMBLE_FILENAME"
 echo "Spark version: $SPARK_VERSION"
 
 # Run build command
-docker build "$ROOT_DIR" -t ${IMAGE_NAME} \
+docker build "$ROOT_DIR"/docker -t ${IMAGE_NAME} \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg RUMBLE_FILENAME=${RUMBLE_FILENAME}
