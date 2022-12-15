@@ -1,8 +1,8 @@
 FROM openjdk:8-alpine
 MAINTAINER Ingo Müller <ingo.mueller@inf.ethz.ch>
 
-ARG SPARK_VERSION=3.1.2
-ARG RUMBLE_FILENAME=v1.16.2/rumbledb-1.16.2-for-spark-3.2.jar
+ARG SPARK_URL
+ARG RUMBLEDB_URL
 
 ENV SPARK_HOME=/opt/spark
 ENV SPARK_WORKER_DIR=/var/spark
@@ -14,11 +14,13 @@ RUN adduser -Ds /bin/bash -h ${SPARK_WORKER_DIR} spark && \
     apk add --virtual .deps --no-cache wget tar && \
     mkdir /opt/spark && \
     cd /opt/spark && \
-    wget --progress=dot:giga https://downloads.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz -O - | \
-        tar -zx --strip-components 1 && \
+    ( \
+        wget --progress=dot:giga ${SPARK_URL} -O - || \
+        wget --progress=dot:giga $(echo ${SPARK_URL} | sed "s~^https://downloads.apache.org/spark/~https://archive.apache.org/dist/spark/~") -O - \
+    ) | tar -zx --strip-components 1 && \
 # Download Rumble
     wget --progress=dot:giga -O /opt/spark/jars/spark-rumble-jar-with-dependencies.jar \
-        https://github.com/RumbleDB/rumble/releases/download/${RUMBLE_FILENAME} && \
+        ${RUMBLEDB_URL} && \
 # Clean-up
     apk --no-cache del .deps
 
