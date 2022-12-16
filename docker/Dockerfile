@@ -8,7 +8,15 @@ ENV SPARK_HOME=/opt/spark
 ENV SPARK_WORKER_DIR=/var/spark
 
 RUN adduser -Ds /bin/bash -h ${SPARK_WORKER_DIR} spark && \
-    apk add --no-cache bash tini libc6-compat linux-pam krb5 krb5-libs && \
+    apk add --no-cache \
+        bash \
+	krb5 \
+	krb5-libs \
+	libc6-compat \
+	linux-pam \
+	procps \
+	tini \
+	&& \
     ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2 && \
 # Download Spark
     apk add --virtual .deps --no-cache wget tar && \
