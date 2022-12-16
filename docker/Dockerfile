@@ -1,4 +1,4 @@
-FROM openjdk:8-alpine
+FROM eclipse-temurin:8-jdk-alpine
 MAINTAINER Ingo Müller <ingo.mueller@inf.ethz.ch>
 
 ARG SPARK_URL
@@ -12,12 +12,10 @@ RUN adduser -Ds /bin/bash -h ${SPARK_WORKER_DIR} spark && \
         bash \
 	krb5 \
 	krb5-libs \
-	libc6-compat \
 	linux-pam \
 	procps \
 	tini \
 	&& \
-    ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2 && \
 # Download Spark
     apk add --virtual .deps --no-cache wget tar && \
     mkdir /opt/spark && \
