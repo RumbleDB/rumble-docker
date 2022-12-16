@@ -33,6 +33,7 @@ RUN adduser -Ds /bin/bash -h ${SPARK_WORKER_DIR} spark && \
     apk --no-cache del .deps
 
 COPY entrypoint.sh "/opt/entrypoint.sh"
+COPY log4j2.properties "/opt/spark/conf/log4j2.properties"
 WORKDIR ${SPARK_WORKER_DIR}
 USER spark:spark
 ENTRYPOINT [ "/opt/entrypoint.sh" ]
