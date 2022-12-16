@@ -71,6 +71,7 @@ fi
 #
 
 declare -A SPARK_VERSIONS=(
+  [1.6.4]=2.4.8
   [1.7.0]=3.0.3
   [1.8.0]=3.0.3
   [1.8.1]=3.0.3
@@ -147,6 +148,7 @@ fi
 #
 
 declare -A RUMBLE_FILENAMES=(
+  [1.6.4-2.4]=v1.6.4/spark-rumble-1.6.4.jar
   [1.7.0-2.4]=v1.7.0/spark-rumble-1.7.0.jar
   [1.7.0-3.0]=v1.7.0/spark-rumble-1.7.0-for-spark-3.jar
   [1.8.0-2.4]=v1.8.0/spark-rumble-1.8.0.jar
