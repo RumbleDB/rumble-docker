@@ -3,7 +3,7 @@
 ![Docker Image Version (latest semver)](https://img.shields.io/docker/v/rumbledb/rumble?sort=semver)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/rumbledb/rumble?sort=semver)
 
-This repository hosts the scripts to build the [official docker images](https://hub.docker.com/repository/docker/rumbledb/rumble) for [RumbleDB](https://rumbledb.org/).
+This repository hosts the scripts to build the [official docker images](https://hub.docker.com/r/rumbledb/rumble) for [RumbleDB](https://rumbledb.org/).
 
 ## How to Use the Image
 
