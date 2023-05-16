@@ -83,12 +83,13 @@ declare -A SPARK_VERSIONS=(
   [1.14.0]=3.0.3
   [1.15.0]=3.0.3
   [1.16.0]=3.0.3
-  [1.16.1]=3.2.3
-  [1.16.2]=3.2.3
-  [1.17.0]=3.2.3
-  [1.18.0]=3.2.3
-  [1.19.0]=3.3.1
-  [1.20.0]=3.3.1
+  [1.16.1]=3.2.4
+  [1.16.2]=3.2.4
+  [1.17.0]=3.2.4
+  [1.18.0]=3.2.4
+  [1.19.0]=3.3.2
+  [1.20.0]=3.3.2
+  [1.21.0]=3.4.0
 )
 
 if [[ -z "$spark_version" && -n "$rumble_version" ]]
@@ -120,7 +121,12 @@ then
   hadoop_version=2.7
   if [[ $spark_major -ge 3 ]]
   then
-    hadoop_version=3.2
+    if [[ $spark_minor -le 2 ]]
+    then
+      hadoop_version=3.2
+    else
+      hadoop_version=3
+    fi
   fi
 fi
 
@@ -193,6 +199,10 @@ declare -A RUMBLE_FILENAMES=(
   [1.20.0-3.1]=v1.20.0/rumbledb-1.20.0-for-spark-3.1.jar
   [1.20.0-3.2]=v1.20.0/rumbledb-1.20.0-for-spark-3.2.jar
   [1.20.0-3.3]=v1.20.0/rumbledb-1.20.0-for-spark-3.3.jar
+  [1.21.0-3.2]=v1.21.0/rumbledb-1.21.0-for-spark-3.2.jar
+  [1.21.0-3.3]=v1.21.0/rumbledb-1.21.0-for-spark-3.3.jar
+  [1.21.0-3.4]=v1.21.0/rumbledb-1.21.0-for-spark-3.4.jar
+
 )
 
 if [[ -z "$rumble_url" && -n "$spark_version" ]]
