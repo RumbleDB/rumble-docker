@@ -10,15 +10,15 @@ This repository hosts the scripts to build the [official docker images](https://
 The most simple command is the following, which starts the RumbleDB shell in a docker container that is destroyed after exit:
 
 ```bash
-docker run --rm -it rumbledb/rumble --shell yes
+docker run --rm -it rumbledb/rumble repl
 ```
 
-Instead of `--shell yes`, any other command line parameters of RumbleDB can be used and vary across versions.
+Instead of `repl`, any other command line parameters of RumbleDB can be used and vary across versions.
 
 It is possible to pass in command line parameters to `spark-submit` via the environment variable `SPARK_SUBMIT_OPTIONS`:
 
 ```bash
-docker run --rm -it -e "SPARK_SUBMIT_OPTIONS=--master local[2]" rumbledb/rumble --shell yes
+docker run --rm -it -e "SPARK_SUBMIT_OPTIONS=--master local[2]" rumbledb/rumble repl
 ```
 
 ## Tags on Docker Hub
@@ -26,9 +26,9 @@ docker run --rm -it -e "SPARK_SUBMIT_OPTIONS=--master local[2]" rumbledb/rumble 
 We maintain the following tags on Docker Hub:
 
 * `latest`: Latest version of RumbleDB with the latest version of Spark.
-* `spark2`/`spark3`: Latest version of RumbleDB with the latest compatible version of Spark 2/3.
+* `spark2`/`spark3`/`spark4`: Latest version of RumbleDB with the latest compatible version of Spark 2/3/4 (currently 4).
 * `<version>`: Specific version of RumblDB with the latest compatible version of Spark.
-* `<version>-spark2`/`<version>-spark3`: Specific version of RumbleDB with the latest compatible version of Spark 2/3.
+* `<version>-spark2`/`<version>-spark3`/`<version>-spark4`: Specific version of RumbleDB with the latest compatible version of Spark 2/3/4.
 
 ## Building the Image
 
@@ -71,7 +71,7 @@ The `SPARK_VERSIONS` array needs to be modified to reflect the minor version upd
 1. Extend and modify the script as described above.
 1. Build all images for the versions that are affected by changes to the script.
 1. After a quick test, commit the changes and push them to this repository.
-1. Add all convenience [tags](https://docs.docker.com/engine/reference/commandline/tag/) (`<version>`, `spark2`, `spark3`, `latest`) that have updated. For example:
+1. Add all convenience [tags](https://docs.docker.com/engine/reference/commandline/tag/) (`<version>`, `spark2`, `spark3`, `spark4`, `latest`) that have updated. For example:
 
    ```bash
    docker tag rumbledb/rumble:v1.20.0-spark3 rumbledb/rumble:v1.20.0
