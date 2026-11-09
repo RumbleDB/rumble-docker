@@ -90,11 +90,12 @@ declare -A SPARK_VERSIONS=(
   [1.19.0]=3.3.2
   [1.20.0]=3.3.2
   [1.21.0]=3.4.4
-  [1.22.0]=3.5.8
-  [1.23.0]=4.0.3
-  [2.0.0]=4.0.3
+  [1.22.0]=3.5.9
+  [1.23.0]=4.0.5
+  [2.0.0]=4.0.5
   [2.1.0]=4.1.2
-  [3.0.0]=4.2.0
+  [3.0.0]=4.2.1
+  [3.1.0]=4.3.0
 )
 
 if [[ -z "$spark_version" && -n "$rumble_version" ]]
@@ -215,6 +216,8 @@ declare -A RUMBLE_FILENAMES=(
   [2.0.0-4.0]=v2.0.0/rumbledb-2.0.0-for-spark-4.0.jar
   [2.1.0-4.1]=v2.1.0/rumbledb-2.1.0-for-spark-4.1.jar
   [3.0.0-4.2]=v3.0.0/rumbledb-3.0.0-for-spark-4.2.jar
+  [3.1.0-3.5]=v3.1.0/rumbledb-3.1.0-for-spark-3.5_2.13.jar
+  [3.1.0-4.3]=v3.1.0/rumbledb-3.1.0-for-spark-4.3.jar
 )
 
 if [[ -z "$rumble_url" && -n "$spark_version" ]]
